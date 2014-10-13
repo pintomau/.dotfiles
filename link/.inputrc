@@ -1,0 +1,2 @@
+# enables terminal case insensitive auto-completion
+set completion-ignore-case On

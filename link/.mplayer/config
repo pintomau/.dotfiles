@@ -1,0 +1,24 @@
+# From bakabt suggested config
+# If you have a multicore CPU, use as many threads as you have cores.
+lavdopts=threads=4
+# Use the GPU accelerated video output driver if available.  If not, fall back
+# to xv (which offers good speed on most cards) as a safe backup.
+# For audio output, always use ALSA.
+# Sometimes "vo=xv,vdpau," gives better results!  Test on your own system.
+vo=vdpau,xv,
+ao=alsa
+# 4 audio channels for surround sound files
+channels=4
+# Default audio and subtitle tracks. (Not all files use the correct tags,
+# so sometimes it will be necessary to switch streams manually with '#' and 'j'
+# or from the command line with "-aid x" and "-sid x")
+alang=jp,jpn,
+slang=en,eng,
+# Find ASS subs and use the fonts provided in the file if possible
+ass=1
+embeddedfonts=1
+fontconfig=1
+# The highest level of subtitle anti-aliasing
+spuaa=4
+# Less stdout text
+quiet=1
