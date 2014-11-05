@@ -21,6 +21,7 @@ brew cask info this-is-somewhat-annoying 2>/dev/null
 # Homebrew casks
 casks=(
   # Applications
+  atom
   #bettertouchtool
   charles
   chromium
@@ -33,9 +34,11 @@ casks=(
   hex-fiend
   #istat-menus
   iterm2
+  java
   fluid
   #launchbar
   macvim
+  netbeans-php
   #moom
   omnidisksweeper
   #race-for-the-galaxy
@@ -53,6 +56,8 @@ casks=(
   #totalfinder
   #tower
   #transmission-remote-gui
+  vagrant
+  virtualbox
   vlc
   # Quick Look plugins
   #betterzipql
@@ -68,9 +73,6 @@ casks=(
   # Color pickers
   #colorpicker-developer
   #colorpicker-skalacolor
-  # Netbeans
-  java
-  netbeans-php
 )
 
 # Install Homebrew casks.
