@@ -26,7 +26,7 @@ casks=(
   # Applications
   atom
   #bettertouchtool
-  charles
+  #charles
   chromium
   #chronosync
   dropbox
