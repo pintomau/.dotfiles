@@ -39,6 +39,7 @@ casks=(
   iterm2
   java
   fluid
+  keepassx0
   #launchbar
   macvim
   netbeans-php
