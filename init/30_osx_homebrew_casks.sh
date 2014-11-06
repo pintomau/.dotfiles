@@ -36,6 +36,8 @@ casks=(
   #gyazo
   hex-fiend
   #istat-menus
+  imageoptim
+  imagealpha
   iterm2
   java
   fluid
