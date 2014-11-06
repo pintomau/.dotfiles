@@ -19,6 +19,7 @@
   rv = review
   s = status
   ksdiff = difftool -y -t Kaleidoscope
+  unstage = reset HEAD --
 [branch "master"]
   remote = origin
   merge = refs/heads/master
