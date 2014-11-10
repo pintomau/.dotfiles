@@ -40,6 +40,7 @@ casks=(
   imagealpha
   iterm2
   java
+  libreoffice
   fluid
   keepassx0
   #launchbar
