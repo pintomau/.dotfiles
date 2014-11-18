@@ -52,6 +52,7 @@ casks=(
   #reaper
   remote-desktop-connection
   #sonos
+  skype
   slack
   spectacle
   spotify
