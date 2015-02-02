@@ -1,8 +1,6 @@
 # OSX-only stuff. Abort if not OSX.
 is_osx || return 1
 
-source 20_osx_homebrew.sh
-
 # Exit if Homebrew is not installed.
 [[ ! "$(type -P brew)" ]] && e_error "Brew casks need Homebrew to install." && return 1
 
@@ -34,33 +32,34 @@ casks=(
   firefox
   google-chrome
   #gyazo
-  hex-fiend
+  hex-fiend # hex editor
   #istat-menus
   imageoptim
   imagealpha
   iterm2
   java
   libreoffice
-  fluid
-  keepassx0
+  fluid # Create apps from webs
+  keepassx0 # Password Manager
+  keka # Archiver
   #launchbar
   macvim
   netbeans-php
   #moom
-  omnidisksweeper
+  omnidisksweeper # disk optimization
   #race-for-the-galaxy
   #reaper
   remote-desktop-connection
   #sonos
-  skype
-  slack
-  spectacle
-  spotify
+  skype # chat
+  slack # chat
+  spectacle # window management
+  #spotify
   #steam
   #synology-assistant
   #teamspeak-client
-  the-unarchiver
-  todoist
+  #the-unarchiver
+  #todoist
   #totalfinder
   #tower
   #transmission-remote-gui
