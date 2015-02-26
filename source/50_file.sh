@@ -20,6 +20,9 @@ else
   alias lsd='CLICOLOR_FORCE=1 ll | grep --color=never "^d"'
 fi
 
+# Faster all files list
+alias lsa='ls -a'
+
 # Easier navigation: .., ..., -
 alias ..='cd ..'
 alias ...='cd ../..'
