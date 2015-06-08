@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then cat <<HELP
+Generate random text
+
+Usage: $(basename "$0") [text-size]
+HELP
+exit; fi
+
+if [ ! "$1" ]; then
+    openssl rand -base64 32
+else
+    echo $(openssl rand -base64 "$1")
+fi
