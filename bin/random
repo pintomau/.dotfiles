@@ -7,8 +7,4 @@ Usage: $(basename "$0") [text-size]
 HELP
 exit; fi
 
-if [ ! "$1" ]; then
-    cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1
-else
-    echo $(cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w "$1" | head -n 1)
-fi
+cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w ${1:-32} | head -n 1
