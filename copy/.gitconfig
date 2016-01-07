@@ -9,6 +9,8 @@
   whitespace = fix
 [alias]
   br = branch
+  branches = branch -a
+  brs = branch -a
   ci = commit
   co = checkout
   df = diff
