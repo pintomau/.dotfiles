@@ -43,6 +43,7 @@
   untracked = cyan
 [merge]
   log = true
+  ff = false
 [difftool "Kaleidoscope"]
   cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
 [rerere]
