@@ -20,7 +20,6 @@
   rb = rbranch
   rv = review
   s = status
-  ksdiff = difftool -y -t Kaleidoscope
   unstage = reset HEAD --
   # View abbreviated SHA, description, and history graph of the latest 20 commits
   l = log --pretty=oneline -n 20 --graph --abbrev-commit
@@ -43,9 +42,6 @@
   untracked = cyan
 [merge]
   log = true
-  ff = false
-[difftool "Kaleidoscope"]
-  cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
 [rerere]
   enabled = 1
 [url "git@github.com:"]
