@@ -25,6 +25,7 @@
   l = log --pretty=oneline -n 20 --graph --abbrev-commit
   # Amend the currently staged files to the latest commit
   amend = commit --amend --reuse-message=HEAD
+  undo = reset HEAD~
 [color]
   ui = auto
 [color "branch"]
