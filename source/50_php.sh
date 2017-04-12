@@ -18,7 +18,7 @@ alias artisan='php artisan'
 
 
 
-# Homestead path
+# Composer bin path
 
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
