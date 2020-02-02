@@ -1,0 +1,9 @@
+
+brew "diff-so-fancy"
+brew "grep"
+brew "jq"
+brew "nvm"
+brew "python"
+brew "python@2"
+brew "stow"
+brew "vim"

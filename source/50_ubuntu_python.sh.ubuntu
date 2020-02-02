@@ -1,12 +1,9 @@
-is_ubuntu || return 1
-
 # Virtual environments home
 export WORKON_HOME=~/.virtualenvs
 
 # Run Virtualenvwrapper script
-if [ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]
-then
-    source "$HOME/.local/bin/virtualenvwrapper.sh"
+if [ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]; then
+	source "$HOME/.local/bin/virtualenvwrapper.sh"
 fi
 
 # Add packages path

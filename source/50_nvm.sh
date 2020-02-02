@@ -1,12 +1,5 @@
 # Node Version Manager
 
-if is_osx; then
-
-  # Exit if Homebrew is not installed.
-  [[ ! "$(type -P brew)" ]] && e_error "Brew needed" && return 1
-
-  #
-  export NVM_DIR=~/.nvm
-  # Load NVM into a shell
-  source $(brew --prefix nvm)/nvm.sh
-fi
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion

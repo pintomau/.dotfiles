@@ -1,121 +1,104 @@
-# My awesome bash prompt
-#
-# Copyright (c) 2012 "Cowboy" Ben Alman
-# Licensed under the MIT license.
-# http://benalman.com/about/license/
-#
-# Example:
-# [master:!?][cowboy@CowBook:~/.dotfiles]
-# [11:14:45] $
-#
-# Read more (and see a screenshot) in the "Prompt" section of
-# https://github.com/cowboy/dotfiles
+## Prompt
 
-# ANSI CODES - SEPARATE MULTIPLE VALUES WITH ;
-#
-#  0  reset          4  underline
-#  1  bold           7  inverse
-#
-# FG  BG  COLOR     FG  BG  COLOR
-# 30  40  black     34  44  blue
-# 31  41  red       35  45  magenta
-# 32  42  green     36  46  cyan
-# 33  43  yellow    37  47  white
+_bash_prompt_config() {
 
-# if [[ ! "${prompt_colors[@]}" ]]; then
-#   prompt_colors=(
-#     "36" # information color
-#     "37" # bracket color
-#     "31" # error color
-#   )
-#
-#   if [[ "$SSH_TTY" ]]; then
-#     # connected via ssh
-#     prompt_colors[0]="32"
-#   elif [[ "$USER" == "root" ]]; then
-#     # logged in as root
-#     prompt_colors[0]="35"
-#   fi
-# fi
+	local USER_SYMBOL="\u"
+	local HOST_SYMBOL="\h"
+	local ESC_OPEN="\["
+	local ESC_CLOSE="\]"
 
-# Returns "*" if the current git branch is dirty.
-function parse_git_dirty {
-  [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]] && echo "*"
+	if tput setaf >/dev/null 2>&1; then
+		_setaf() { tput setaf "$1"; }
+		local RESET="${ESC_OPEN}$({ tput sgr0 || tput me; } 2>/dev/null)${ESC_CLOSE}"
+		local BOLD="$({ tput bold || tput md; } 2>/dev/null)"
+	else
+		# Fallback
+		_setaf() { echo "\033[0;$(($1 + 30))m"; }
+		local RESET="\033[m"
+		local BOLD=""
+		ESC_OPEN=""
+		ESC_CLOSE=""
+	fi
+
+	# Normal colors
+	local BLACK="${ESC_OPEN}$(_setaf 0)${ESC_CLOSE}"
+	local RED="${ESC_OPEN}$(_setaf 1)${ESC_CLOSE}"
+	local GREEN="${ESC_OPEN}$(_setaf 2)${ESC_CLOSE}"
+	local YELLOW="${ESC_OPEN}$(_setaf 3)${ESC_CLOSE}"
+	local BLUE="${ESC_OPEN}$(_setaf 4)${ESC_CLOSE}"
+	local VIOLET="${ESC_OPEN}$(_setaf 5)${ESC_CLOSE}"
+	local CYAN="${ESC_OPEN}$(_setaf 6)${ESC_CLOSE}"
+	local WHITE="${ESC_OPEN}$(_setaf 7)${ESC_CLOSE}"
+
+	# Bright colors
+	local BRIGHT_GREEN="${ESC_OPEN}$(_setaf 10)${ESC_CLOSE}"
+	local BRIGHT_YELLOW="${ESC_OPEN}$(_setaf 11)${ESC_CLOSE}"
+	local BRIGHT_BLUE="${ESC_OPEN}$(_setaf 12)${ESC_CLOSE}"
+	local BRIGHT_VIOLET="${ESC_OPEN}$(_setaf 13)${ESC_CLOSE}"
+	local BRIGHT_CYAN="${ESC_OPEN}$(_setaf 14)${ESC_CLOSE}"
+	local BRIGHT_WHITE="${ESC_OPEN}$(_setaf 15)${ESC_CLOSE}"
+
+	# Bold colors
+	local BLACK_BOLD="${ESC_OPEN}${BOLD}$(_setaf 0)${ESC_CLOSE}"
+	local RED_BOLD="${ESC_OPEN}${BOLD}$(_setaf 1)${ESC_CLOSE}"
+	local GREEN_BOLD="${ESC_OPEN}${BOLD}$(_setaf 2)${ESC_CLOSE}"
+	local YELLOW_BOLD="${ESC_OPEN}${BOLD}$(_setaf 3)${ESC_CLOSE}"
+	local BLUE_BOLD="${ESC_OPEN}${BOLD}$(_setaf 4)${ESC_CLOSE}"
+	local VIOLET_BOLD="${ESC_OPEN}${BOLD}$(_setaf 5)${ESC_CLOSE}"
+	local CYAN_BOLD="${ESC_OPEN}${BOLD}$(_setaf 6)${ESC_CLOSE}"
+	local WHITE_BOLD="${ESC_OPEN}${BOLD}$(_setaf 7)${ESC_CLOSE}"
+
+	# Expose the variables we need in prompt command
+	P_USER=${BRIGHT_GREEN}${USER_SYMBOL}
+	P_HOST=${CYAN}${HOST_SYMBOL}
+	P_WHITE=${WHITE}
+	P_GREEN=${BRIGHT_GREEN}
+	P_YELLOW=${YELLOW}
+	P_RED=${RED}
+	P_RESET=${RESET}
+
 }
 
-# Returns "|shashed:N" where N is the number of stashed states (if any).
-function parse_git_stash {
-  local stash=`expr $(git stash list 2>/dev/null| wc -l)`
-  if [ "$stash" != "0" ]
-  then
-    echo "|stashed:$stash"
-  fi
+bash_prompt_command() {
+
+	local EXIT_CODE=$?
+	local P_EXIT=""
+	local MAXLENGTH=35
+	local TRUNC_SYMBOL=".."
+	local DIR=${PWD##*/}
+	local P_PWD=${PWD/#$HOME/\~}
+
+	MAXLENGTH=$(((MAXLENGTH < ${#DIR}) ? ${#DIR} : MAXLENGTH))
+
+	local OFFSET=$((${#P_PWD} - MAXLENGTH))
+
+	if [ ${OFFSET} -gt "0" ]; then
+		P_PWD=${P_PWD:$OFFSET:$MAXLENGTH}
+		P_PWD=${TRUNC_SYMBOL}/${P_PWD#*/}
+	fi
+
+	# Update terminal title
+	if [[ $TERM == xterm* ]]; then
+		echo -ne "\033]0;${P_PWD}\007"
+	fi
+
+	# Parse Git branch name
+	P_GIT=$(parse_git_branch)
+
+	# Exit code
+	if [[ $EXIT_CODE != 0 ]]; then
+		P_EXIT+="${P_RED}✘ "
+	fi
+
+	PS1="${P_EXIT}${P_USER}${P_WHITE}@${P_HOST} ${P_YELLOW}(${P_PWD})${P_GREEN}${P_GIT}${P_YELLOW}\n${P_RED}\$? ${P_YELLOW}❯ ${P_RESET}"
 }
 
-# Returns "|unmerged:N" where N is the number of unmerged local and remote
-# branches (if any).
-function parse_git_unmerged {
-  local unmerged=`expr $(git branch --no-color -a --no-merged | wc -l)`
-  if [ "$unmerged" != "0" ]
-  then
-    echo "|unmerged:$unmerged"
-  fi
+parse_git_branch() {
+	local OUT=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+	if [ "$OUT" != "" ]; then echo " $OUT"; fi
 }
 
-# Returns "|unpushed:N" where N is the number of unpushed local and remote
-# branches (if any).
-function parse_git_unpushed {
-  local unpushed=`expr $( (git branch --no-color -r --contains HEAD; \
-    git branch --no-color -r) | sort | uniq -u | wc -l )`
-  if [ "$unpushed" != "0" ]
-  then
-    echo "|unpushed:$unpushed"
-  fi
-}
+_bash_prompt_config
+unset _bash_prompt_config
 
-# Get the current git branch name (if available)
-git_prompt() {
-  local ref=$(git symbolic-ref HEAD 2>/dev/null | cut -d'/' -f3)
-  if [ "$ref" != "" ]
-  then
-    echo "($ref$(parse_git_dirty)$(parse_git_stash)$(parse_git_unmerged)$(parse_git_unpushed)) "
-  fi
-}
-
-prompt_command() {
-  local none="\[\033[0m\]"
-
-  local black="\[\033[0;30m\]"
-  local dark_gray="\[\033[1;30m\]"
-  local blue="\[\033[0;34m\]"
-  local light_blue="\[\033[1;34m\]"
-  local green="\[\033[0;32m\]"
-  local light_green="\[\033[1;32m\]"
-  local cyan="\[\033[0;36m\]"
-  local light_cyan="\[\033[1;36m\]"
-  local red="\[\033[0;31m\]"
-  local light_red="\[\033[1;31m\]"
-  local purple="\[\033[0;35m\]"
-  local light_purple="\[\033[1;35m\]"
-  local brown="\[\033[0;33m\]"
-  local yellow="\[\033[1;33m\]"
-  local light_gray="\[\033[0;37m\]"
-  local white="\[\033[1;37m\]"
-
-  local current_tty=`tty | sed -e "s/\/dev\/\(.*\)/\1/"`
-
-  local u_color=$purple
-  id -u > /dev/null 2>&1 &&           #Cross-platform hack.
-
-  if [ `id -u` -eq 0 ] ; then
-    local u_color=$yellow
-  fi
-
-  PS1="$light_blue> $u_color\u$brown@${purple}\h$brown:\
-$light_blue\w$cyan$(__git_ps1)\n$light_blue> $light_red\$?"\
-"$brown"' \$'"$none "
-
-  PS2="$dark_gray>$none "
-}
-
-PROMPT_COMMAND="prompt_command"
+PROMPT_COMMAND=bash_prompt_command

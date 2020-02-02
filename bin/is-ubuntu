@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ "$(cat /etc/issue 2>/dev/null)" =~ Ubuntu ]]; then
+	exit 0
+else
+	exit 1
+fi
