@@ -4,16 +4,7 @@
 # Resolve DOTFILES_DIR (assuming ~/.dotfiles on distros without readlink and/or $BASH_SOURCE/$0)
 READLINK=$(which greadlink 2>/dev/null || which readlink)
 CURRENT_SCRIPT=$BASH_SOURCE
-
-if [[ -n $CURRENT_SCRIPT && -x "$READLINK" ]]; then
-	SCRIPT_PATH=$($READLINK -n "$CURRENT_SCRIPT")
-	DOTFILES_DIR=$(dirname "$(dirname "$SCRIPT_PATH")")
-elif [ -d "$HOME/.dotfiles" ]; then
-	DOTFILES_DIR="$HOME/.dotfiles"
-else
-	echo "Unable to find dotfiles, exiting."
-	return
-fi
+DOTFILES_DIR="$HOME/.dotfiles"
 
 # Make utilities available
 PATH="$DOTFILES_DIR/bin:$PATH"
@@ -46,7 +37,7 @@ if [ -d "$DOTFILES_EXTRA_DIR" ]; then
 fi
 
 # Clean up
-unset READLINK CURRENT_SCRIPT SCRIPT_PATH DOTFILE EXTRAFILE
+unset READLINK CURRENT_SCRIPT DOTFILE EXTRAFILE
 
 # Export
 export DOTFILES_DIR DOTFILES_EXTRA_DIR

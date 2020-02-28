@@ -26,6 +26,7 @@ alias lsa='ls -a'
 # Easier navigation: .., ..., -
 alias ..='cd ..'
 alias ...='cd ../..'
+alias ....='cd ../../..'
 alias -- -='cd -'
 
 # File size
