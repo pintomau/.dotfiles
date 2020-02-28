@@ -3,7 +3,7 @@
   email = mauro.s.pinto@gmail.com
 
 [core]
-  autocrlf = input
+  autocrlf = false
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
   pager = diff-so-fancy | less --tabs=4 -RFX
 
