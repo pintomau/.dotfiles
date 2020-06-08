@@ -1,5 +1,2 @@
-# Exit if, for some reason, Homebrew is not installed.
-[[ ! "$(type -P brew)" ]] && return 1
-
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"

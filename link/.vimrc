@@ -21,3 +21,5 @@ set wildmenu
 set wildmode=longest:list,full
 
 set backspace=indent,eol,start " intuitive backspacing
+
+set clipboard=unnamed " copy to OS clipboard by default

@@ -1,6 +1,7 @@
 # Git shortcuts
 
 alias g='git'
+complete -F _complete_alias g
 function ga() { git add "${@:-.}"; } # Add all files by default
 alias gp='git push'
 alias gpa='gp --all'
