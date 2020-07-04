@@ -31,9 +31,9 @@ link: stow-$(OS)
 	stow -t $(XDG_CONFIG_HOME) config
 
 unlink: stow-$(OS)
-	stow --delete -t $(HOME) runcom
+	stow --delete -t $(HOME) link
 	stow --delete -t $(XDG_CONFIG_HOME) config
-	for FILE in $$(\ls -A runcom); do if [ -f $(HOME)/$$FILE.bak ]; then mv -v $(HOME)/$$FILE.bak $(HOME)/$${FILE%%.bak}; fi; done
+	for FILE in $$(\ls -A link); do if [ -f $(HOME)/$$FILE.bak ]; then mv -v $(HOME)/$$FILE.bak $(HOME)/$${FILE%%.bak}; fi; done
 
 
 brew:
