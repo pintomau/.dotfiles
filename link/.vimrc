@@ -1,9 +1,7 @@
-syntax on                   " syntax highlight 
+syntax on                   " syntax highlight
 set number                  " show line numbers
-set tabstop=4               " size of hard tabstop
-set shiftwidth=4            " size of an indent
-set smarttab                " make tab insert indents instead of tabs at the beginning of a line
-set expandtab               " always uses spaces instead of tab characters
+
+filetype plugin indent on
 set autoindent
 
 set hlsearch                " search highlight
@@ -22,4 +20,4 @@ set wildmode=longest:list,full
 
 set backspace=indent,eol,start " intuitive backspacing
 
-set clipboard=unnamed " copy to OS clipboard by default
+set clipboard=unnamedplus,unnamed " copy to OS clipboard by default
