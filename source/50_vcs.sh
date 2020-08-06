@@ -9,23 +9,26 @@ alias gu='git pull'
 alias gl='git log'
 alias gg='gl --decorate --oneline --graph --date-order --all'
 alias gs='git status'
-alias gst='gs'
 alias gd='git diff'
+complete -F _complete_alias gd
 alias gdc='gd --cached'
 alias gm='git commit -m'
 alias gma='git commit -am'
 alias gb='git branch'
 alias gba='git branch -a'
-function gc() { git checkout "${@:-master}"; } # Checkout master by default
-alias gco='gc'
-alias gcb='gc -b'
-alias gbc='gc -b' # Dyslexia
+alias gc='git checkout'
+complete -F _complete_alias gc
 alias gr='git remote'
 alias grv='gr -v'
 #alias gra='git remote add'
 alias grr='git remote rm'
 alias gcl='git clone'
 alias gcd='git rev-parse 2>/dev/null && cd "./$(git rev-parse --show-cdup)"'
+
+# stashing
+alias gsp="git stash pop"
+alias gsl="git stash list"
+alias gss="git stash push -m"
 
 # Current branch or SHA if detached.
 alias gbs='git branch | perl -ne '"'"'/^\* (?:\(detached from (.*)\)|(.*))/ && print "$1$2"'"'"''
@@ -94,9 +97,3 @@ for n in {1..5}; do alias gf$n="gf -n $n"; done
 function gj() { git-jump "${@:-next}"; }
 alias gj-='gj prev'
 
-# OSX-specific Git shortcuts
-if [[ "$OSTYPE" =~ ^darwin ]]; then
-	alias gdk='git ksdiff'
-	alias gdkc='gdk --cached'
-	alias gt='gittower "$(git rev-parse --show-toplevel)"'
-fi
