@@ -4,6 +4,7 @@ alias g='git'
 complete -F _complete_alias g
 function ga() { git add "${@:-.}"; } # Add all files by default
 alias gp='git push'
+alias gpf='git push -f'
 alias gpa='gp --all'
 alias gu='git pull'
 alias gl='git log'
@@ -18,6 +19,7 @@ alias gb='git branch'
 alias gba='git branch -a'
 alias gc='git checkout'
 complete -F _complete_alias gc
+alias gc-='git checkout -'
 alias gr='git remote'
 alias grv='gr -v'
 #alias gra='git remote add'
