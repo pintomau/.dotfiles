@@ -1,6 +1,6 @@
+brew "asdf"
 brew "diff-so-fancy"
 brew "grep"
-brew "jabba"
 brew "jq"
 brew "kind"
 brew "kubectx"
