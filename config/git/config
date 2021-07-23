@@ -47,6 +47,19 @@
   log = true
 [rerere]
   enabled = 1
+[push]
+  default = simple
+[pull]
+# When true, rebase branches on top of the fetched branch, instead of merging the default branch from the default
+# remote when "git pull" is run. See "branch.<name>.rebase" for setting this on a per-branch basis.
+  rebase = true
+[rebase]
+# When set to true, automatically create a temporary stash entry before the operation begins, and apply it after
+# the operation ends. This means that you can run rebase on a dirty worktree. However, use with care: the final
+# stash application after a successful rebase might result in non-trivial conflicts. This option can be
+# overridden by the --no-autostash and --autostash options of git-rebase[1]. Defaults to false.
+# It is the equivalent to: git stash & git pull --rebase & git stash pop.
+  autostash = true
 [url "git@github.com:"]
   insteadOf = "gh:"
   pushInsteadOf = "github:"
@@ -61,10 +74,6 @@
   insteadOf = "gist:"
 [url "git@heroku.com:"]
   insteadOf = "heroku:"
-[push]
-  default = simple
-[pull]
-	rebase = true
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
