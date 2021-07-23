@@ -4,8 +4,9 @@ alias g='git'
 complete -F _complete_alias g
 function ga() { git add "${@:-.}"; } # Add all files by default
 alias gp='git push'
+alias gpf='git push -f'
 alias gpa='gp --all'
-alias gu='git pull'
+#alias gu='git pull' # Conflicts with graal
 alias gl='git log'
 alias gg='gl --decorate --oneline --graph --date-order --all'
 alias gs='git status'

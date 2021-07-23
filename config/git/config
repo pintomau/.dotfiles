@@ -63,6 +63,8 @@
   insteadOf = "heroku:"
 [push]
   default = simple
+[pull]
+	rebase = true
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path =
